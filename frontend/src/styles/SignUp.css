@@ -1,0 +1,12 @@
+#signUpContainer {
+    padding: 20px;
+    border: 1px solid black;
+    border-color: black;
+    color: black;
+    margin: auto;
+}
+
+#loginForm {
+    border: 1px solid black;
+    padding: 20px
+}

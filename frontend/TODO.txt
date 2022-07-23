@@ -1,0 +1,4 @@
+when you buy a stock for the first time, and click buy multiple times, it should only create one 
+new stock row, but it doesn't, 
+
+you should check the database each time you buy a stock to see if it exists.
