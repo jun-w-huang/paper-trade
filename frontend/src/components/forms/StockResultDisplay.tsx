@@ -1,16 +1,13 @@
 import React, { ReactElement } from "react";
-import {
-  handleBuyProps,
-  IRootObject,
-  Portfolio,
-  userJSON,
-} from "../../interfaces";
+import { handleTradeProps, IRootObject, userJSON } from "../../interfaces";
 import BuyAndSellForm from "./BuyAndSellForm";
 
 interface StockResultProps {
   userJSON: userJSON;
+  token: string;
   JSONOrString: IRootObject | string;
-  handleBuy: (props: handleBuyProps) => void;
+  handleBuy: (props: handleTradeProps) => Promise<void>;
+  handleSell: (props: handleTradeProps) => Promise<void>;
 }
 
 function StockResultDisplay(
@@ -53,9 +50,11 @@ function StockResultDisplay(
           </table>
         </div>
         <BuyAndSellForm
+          token={props.token}
           userJSON={props.userJSON}
           stockJSON={props.JSONOrString}
           handleBuy={props.handleBuy}
+          handleSell={props.handleSell}
         />
       </div>
     );

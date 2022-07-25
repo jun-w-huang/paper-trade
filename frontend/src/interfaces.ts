@@ -25,13 +25,10 @@ export interface userID {
   },
 }
 
-export interface handleBuyProps {
+export interface handleTradeProps {
   cost: number,
-  userJSON: userJSON,
-    quantity: number,
-    stockJSON: IRootObject,
-    stockIsOwned: boolean,
-    index: number
+  quantity: number,
+  stockJSON: IRootObject,
 }
 
 

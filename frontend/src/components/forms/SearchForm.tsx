@@ -1,11 +1,6 @@
 import { ReactElement, useState } from "react";
 import { getStockJSON } from "../../helpers";
-import {
-  handleBuyProps,
-  IRootObject,
-  Portfolio,
-  userJSON,
-} from "../../interfaces";
+import { handleTradeProps, IRootObject, userJSON } from "../../interfaces";
 import StockResultDisplay from "./StockResultDisplay";
 
 const defaultFormData = {
@@ -14,9 +9,11 @@ const defaultFormData = {
 
 interface SearchFormProps {
   userJSON: userJSON;
+  token: string;
   JSONOrString: IRootObject | string;
   handleSearch: (stockJSON: IRootObject | string) => void;
-  handleBuy: (props: handleBuyProps) => void;
+  handleBuy: (props: handleTradeProps) => Promise<void>;
+  handleSell: (props: handleTradeProps) => Promise<void>;
 }
 
 function SearchForm(props: SearchFormProps): ReactElement {
@@ -52,8 +49,10 @@ function SearchForm(props: SearchFormProps): ReactElement {
       </div>
       <StockResultDisplay
         userJSON={props.userJSON}
+        token={props.token}
         JSONOrString={props.JSONOrString}
         handleBuy={props.handleBuy}
+        handleSell={props.handleSell}
       />
     </div>
   );

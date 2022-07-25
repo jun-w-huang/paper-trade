@@ -24,7 +24,6 @@ function StockRow(props: stockRowProps) {
 
   //initial price, runs once
   useLayoutEffect(() => {
-    console.log("layout");
     getStockLatestPrice(props.stock.symbol).then((newLatestPrice) => {
       setLatestPrice(newLatestPrice);
     });
@@ -64,7 +63,6 @@ export default function OwnedStockList(props: stockListProps) {
     ));
   };
 
-  console.log("stock list");
   // This following section will display the table with the records of individuals.
   return (
     <div>
