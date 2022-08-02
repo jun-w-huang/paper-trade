@@ -1,7 +1,9 @@
 import { Route, Routes } from "react-router-dom";
-import PaperTrade from "./PaperTrade";
-import Home from "./components/Home";
+import Dashboard from "./dashboard/Dashboard";
+import LandingPage from "./landingPage/LandingPage";
 import React from "react";
+import SignUp from "./auth/SignUp";
+import Login from "./auth/Login";
 
 class App extends React.Component {
   initialState = {
@@ -22,16 +24,16 @@ class App extends React.Component {
     return (
       <div>
         <Routes>
+          <Route path="*" element={<LandingPage />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route
-            path="*"
-            element={
-              <Home token={this.state.token} handleLogin={this.handleLogin} />
-            }
+            path="/login"
+            element={<Login handleLogin={this.handleLogin} />}
           />
           {this.state.isLoggedIn && (
             <Route
               path="/dashboard"
-              element={<PaperTrade token={this.state.token} />}
+              element={<Dashboard token={this.state.token} />}
             />
           )}
         </Routes>

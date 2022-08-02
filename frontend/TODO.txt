@@ -1,4 +1,11 @@
-when you buy a stock for the first time, and click buy multiple times, it should only create one 
-new stock row, but it doesn't, 
+1. COMMENTS
 
-you should check the database each time you buy a stock to see if it exists.
+2. CSS
+- login page, shouldn't have 2 login buttons or 2 signup buttons, figure out a way
+  to only display one at a time.
+
+
+3. display portfolio return?
+
+
+4. password should be hidden

@@ -1,0 +1,96 @@
+@import './constants.css';
+
+#background-container {
+  background-color: var(--main-bg-color);
+  /* Set rules to fill background */
+  min-height: 100%;
+  min-width: 1024px;
+	
+  /* Set up proportionate scaling */
+  width: 100%;
+  height: auto;
+	
+  /* Set up positioning */
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+
+}
+
+#title-navlinks-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 6px;
+
+  width:40%;
+  color:var(--white);
+}
+
+/* Title and Subtitle */
+#titles-container {
+  position: relative;
+  height:fit-content;
+}
+
+#title {
+  font-size: 60px;
+  font-weight:700;
+}
+
+#subtitle {
+  font-size:larger;
+  font-weight:300;
+
+}
+
+/* HR Break */
+hr {
+  margin: 12px 0px 20px;
+  width:100%;
+  border-top: 1px solid var(--white)
+}
+
+/* nav-links */
+#nav-links-container {
+  font-weight: bold;
+
+  display: flex;
+  flex-direction:column;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.nav-link {
+  border-radius: 12px;
+  border-style: solid;
+  border-color: var(--main-bg-color);
+  
+  background-color: var(--white);
+  color: var(--main-bg-color);
+
+  padding: 6px;
+
+  text-align: center;
+  vertical-align:middle;
+  font-weight: bold;
+}
+
+
+
+/* Images */
+#images-container {
+  border: 2px solid var(--red);
+  /* transform:rotate(10deg); */
+}
+
+.image {
+  opacity: 70%;
+}
+
+
