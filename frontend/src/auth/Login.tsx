@@ -3,9 +3,14 @@ import { NavLink, Route, Routes, useNavigate } from "react-router-dom";
 import "../styles/Auth.css";
 
 interface loginProps {
-  handleLogin: (token: string) => void;
+  setToken: (token: string) => void;
 }
 
+/**
+ * This component is responsible
+ * @param props contains a setToken function called upon valid form submission.
+ * @returns
+ */
 export default function Login(props: loginProps) {
   const [formData, setFormData] = useState({
     username: "",
@@ -42,8 +47,7 @@ export default function Login(props: loginProps) {
     const user = await fetchUser();
 
     if (user.token) {
-      // props.userID = user.id;
-      props.handleLogin(user.token);
+      props.setToken(user.token);
       navigate("/dashboard");
     } else {
       console.log("error found");

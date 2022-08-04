@@ -7,7 +7,12 @@ import SearchForm from "./SearchForm";
 import OwnedStockList from "./OwnedStocksList";
 import Header from "./Header";
 
-import { getStockIndex, getStockLatestPrice, getThisUserJSON } from "./helpers";
+import {
+  getStockIndex,
+  getStockLatestPrice,
+  getThisUserJSON,
+  updateUser,
+} from "./helpers";
 import TopTenStocksList from "./TopTenStocksList";
 
 type DashboardProps = {
@@ -110,18 +115,12 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
         cash: newCash,
       };
 
-      const editedUser = {
-        portfolio: newPortfolio,
-        stocks: newStocks,
-      };
-
-      fetch(`http://localhost:5000/update/${this.state.userJSON._id}`, {
-        method: "POST",
-        body: JSON.stringify(editedUser),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then(() => {
+      updateUser(
+        this.state.userJSON._id,
+        newPortfolio,
+        newStocks,
+        this.state.token
+      ).then(() => {
         return this.refreshUserJSON();
       });
     });
@@ -154,18 +153,12 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
         cash: newCash,
       };
 
-      const editedUser = {
-        portfolio: newPortfolio,
-        stocks: newStocks,
-      };
-
-      fetch(`http://localhost:5000/update/${this.state.userJSON._id}`, {
-        method: "POST",
-        body: JSON.stringify(editedUser),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then(() => {
+      updateUser(
+        this.state.userJSON._id,
+        newPortfolio,
+        newStocks,
+        this.state.token
+      ).then(() => {
         return this.refreshUserJSON();
       });
     });

@@ -85,7 +85,7 @@ hr {
 
 /* Images */
 #images-container {
-  border: 2px solid var(--red);
+  border: 2px solid var(--green);
   /* transform:rotate(10deg); */
 }
 

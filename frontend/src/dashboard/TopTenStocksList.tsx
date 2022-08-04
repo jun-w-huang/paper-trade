@@ -1,5 +1,4 @@
 import { useLayoutEffect, useState } from "react";
-import { getStockLatestPrice, useInterval } from "./helpers";
 import { IRootObject } from "./interfaces";
 
 interface stockRowProps {

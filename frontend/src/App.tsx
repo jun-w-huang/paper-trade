@@ -8,29 +8,24 @@ import Login from "./auth/Login";
 class App extends React.Component {
   initialState = {
     token: "",
-    isLoggedIn: false,
   };
   state = this.initialState;
 
-  handleLogin(token: string) {
+  setToken(token: string) {
     this.setState({
       token: token,
-      isLoggedIn: true,
     });
   }
 
   render() {
-    this.handleLogin = this.handleLogin.bind(this);
+    this.setToken = this.setToken.bind(this);
     return (
       <div>
         <Routes>
           <Route path="*" element={<LandingPage />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route
-            path="/login"
-            element={<Login handleLogin={this.handleLogin} />}
-          />
-          {this.state.isLoggedIn && (
+          <Route path="/login" element={<Login setToken={this.setToken} />} />
+          {this.state.token && (
             <Route
               path="/dashboard"
               element={<Dashboard token={this.state.token} />}
