@@ -1,5 +1,5 @@
 import { ReactElement, useState } from "react";
-import { getStockJSON } from "./helpers";
+import { fetchStockJSON } from "./helpers";
 import { handleTradeProps, IRootObject } from "./interfaces";
 import StockResultDisplay from "./StockResultDisplay";
 
@@ -16,7 +16,14 @@ interface SearchFormProps {
 function SearchForm(props: SearchFormProps): ReactElement {
   const [formData, setFormData] = useState(defaultFormData);
   const { ticker } = formData;
-  const [JSONOrString, setJSONOrString] = useState<IRootObject | string>();
+  /**
+   * This useState object will hold what is returned from searching for a given stock ticker.
+   * It will be an IRootObject (which is a JSON object containing relevant stock information),
+   * or it will be a string in the case that there was an error fetching from the stock API.
+   *
+   */
+  const [stockJSON, setStockJSON] = useState<IRootObject>();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -26,9 +33,15 @@ function SearchForm(props: SearchFormProps): ReactElement {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    getStockJSON(formData.ticker).then((JSONOrString: string | IRootObject) => {
-      setJSONOrString(JSONOrString);
-    });
+    fetchStockJSON(formData.ticker)
+      .then((stockJSON: IRootObject) => {
+        setStockJSON(stockJSON);
+        setErrorMessage("");
+      })
+      .catch((error) => {
+        setErrorMessage(error);
+        setStockJSON(undefined);
+      });
   };
 
   return (
@@ -47,14 +60,15 @@ function SearchForm(props: SearchFormProps): ReactElement {
           <input type="submit" value="Search" />
         </form>
       </div>
-      {JSONOrString && (
+      {stockJSON && (
         <StockResultDisplay
           token={props.token}
-          JSONOrString={JSONOrString}
+          stockJSON={stockJSON}
           handleBuy={props.handleBuy}
           handleSell={props.handleSell}
         />
       )}
+      {errorMessage && <p>{errorMessage}</p>}
     </div>
   );
 }

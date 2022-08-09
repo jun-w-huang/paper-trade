@@ -1,28 +1,27 @@
-import { useRef, useEffect } from "react";
 import { IRootObject, Portfolio, Stock, userJSON } from "./interfaces";
 
-export async function getStockJSON(
-  ticker: string
-): Promise<IRootObject | string> {
+export async function fetchStockJSON(ticker: string): Promise<any> {
   try {
     const response =
       await fetch(`https://sandbox.iexapis.com/stable/stock/${ticker}/quote/
                                         ?token=Tpk_e2b21cc8584845038c4338a07fc520ef`);
     const stockJSON = await response.json();
-    return stockJSON;
+    return Promise.resolve(stockJSON);
   } catch {
-    return `Tried to fetch ${ticker}, but the stock wasn't found ):`;
+    return Promise.reject(
+      `Tried to fetch ${ticker}, but the stock was not found.`
+    );
   }
 }
 
-export async function getStockLatestPrice(symbol: string): Promise<number> {
-  return getStockJSON(symbol).then((stockJSON) => {
-    if (typeof stockJSON === "string") {
-      return 0;
-    } else {
-      return stockJSON.latestPrice;
-    }
-  });
+export async function fetchStockLatestPrice(symbol: string): Promise<number> {
+  return fetchStockJSON(symbol)
+    .then((stockJSON) => {
+      return Promise.resolve(stockJSON.latestPrice);
+    })
+    .catch((error) => {
+      return Promise.reject(0);
+    });
 }
 
 export async function getThisUserJSON(token: string) {
@@ -38,7 +37,7 @@ export async function getThisUserJSON(token: string) {
   }
 }
 
-export async function updateUser(
+export async function updateUserInBackend(
   userID: { $oid: string },
   editedUserPortfolio: Portfolio,
   editedUserStocks: Stock[],
@@ -48,8 +47,8 @@ export async function updateUser(
     portfolio: editedUserPortfolio,
     stocks: editedUserStocks,
   };
-  console.log(userID);
-  fetch(`http://localhost:5000/update/${userID}`, {
+
+  return fetch(`http://localhost:5000/update/${userID}`, {
     method: "POST",
     body: JSON.stringify(editedUser),
     headers: {
@@ -71,28 +70,3 @@ export function getStockIndex(
   const index = userJSON.stocks.findIndex(isStockSymbol);
   return index;
 }
-
-// https://gist.github.com/babakness/faca3b633bc23d9a0924efb069c9f1f5
-// https://overreacted.io/making-setinterval-declarative-with-react-hooks/
-// dan abramov set interval typescript version
-// export type IntervalFunction = () => unknown | void;
-
-// export function useInterval(callback: IntervalFunction, delay: number) {
-//   const savedCallback = useRef<IntervalFunction | null>(null);
-
-//   // Remember the latest callback.
-//   useEffect(() => {
-//     savedCallback.current = callback;
-//   });
-
-//   // Set up the interval.
-//   useEffect(() => {
-//     function tick() {
-//       if (savedCallback.current !== null) {
-//         savedCallback.current();
-//       }
-//     }
-//     const id = setInterval(tick, delay);
-//     return () => clearInterval(id);
-//   }, [delay]);
-// }

@@ -1,16 +1,16 @@
-import { ReactElement, useState } from "react";
+import { ReactElement } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Portfolio, Stock } from "./interfaces";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
-interface PieChartProps {
+interface DoughnutChartProps {
   portfolio: Portfolio;
   stocks: Stock[];
 }
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export function PieChart(props: PieChartProps): ReactElement {
+export function DoughnutChart(props: DoughnutChartProps): ReactElement {
   const labels = (): Array<String> => {
     var result: Array<String> = Array<String>();
     result.push("Cash");

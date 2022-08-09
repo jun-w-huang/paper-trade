@@ -15,7 +15,6 @@ export interface userJSON {
     "$oid": string
   },
   "username": string
-  "password": string
   "portfolio": Portfolio
   "stocks": Stock[]
 }

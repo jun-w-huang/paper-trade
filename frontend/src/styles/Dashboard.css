@@ -26,7 +26,6 @@
 	
 }
 
-
 .component {
 	border-style: solid;
 	border-radius: 12px;
@@ -43,6 +42,18 @@
 
 .component .component {
 	flex: 1 1 auto;
+}
+
+#header {
+	display: flex; 
+    align-items: center;
+	justify-content: space-between;
+}
+
+#header-subcontainer {
+	display:flex;
+	gap: 12px;
+	align-items: center;
 }
 
 #logo {
@@ -91,8 +102,6 @@
 #doughnut-container {
 	min-width: 300px;
 	min-height: 50%;
-	/* max-height: 100%; */
-	/* max-width:100%; */
 }
 
 #SearchForm {
@@ -108,7 +117,6 @@ thead {
 	width:100%;
 	background:var(--main-bg-color);
 	padding: 1px;
-	color: white;
 }
 
 th {
@@ -127,9 +135,3 @@ td {
 }
 
 
-/* Header */
-#header {
-	display: flex; 
-    align-items: center;
-	justify-content: space-between;
-}

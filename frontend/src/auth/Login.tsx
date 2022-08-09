@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink, Route, Routes, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "../styles/Auth.css";
 
 interface loginProps {
@@ -7,9 +7,8 @@ interface loginProps {
 }
 
 /**
- * This component is responsible
+ * Renders login page and handles login attempts
  * @param props contains a setToken function called upon valid form submission.
- * @returns
  */
 export default function Login(props: loginProps) {
   const [formData, setFormData] = useState({
@@ -32,27 +31,21 @@ export default function Login(props: loginProps) {
 
     const userCredentials = formData;
 
-    const fetchUser = async () => {
-      const response = await fetch(`http://localhost:5000/auth/`, {
-        method: "POST",
-        body: JSON.stringify(userCredentials),
-        headers: {
-          "Content-Type": "application/json",
-        },
+    fetch(`http://localhost:5000/auth/`, {
+      method: "POST",
+      body: JSON.stringify(userCredentials),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(async (response) => {
+        const user = await response.json();
+        props.setToken(user.token);
+        navigate("/dashboard");
+      })
+      .catch((error) => {
+        setErrorMessage(error.msg);
       });
-      const user = await response.json();
-      return user;
-    };
-
-    const user = await fetchUser();
-
-    if (user.token) {
-      props.setToken(user.token);
-      navigate("/dashboard");
-    } else {
-      console.log("error found");
-      setErrorMessage(user.msg);
-    }
   };
 
   return (

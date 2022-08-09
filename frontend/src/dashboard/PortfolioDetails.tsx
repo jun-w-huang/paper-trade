@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 import { Portfolio, Stock } from "./interfaces";
-import { PieChart } from "./PieChart";
+import { DoughnutChart } from "./DoughnutChart";
 import cashSVG from "../res/cash.png";
 
 interface PortfolioDetailProps {
@@ -37,12 +37,12 @@ export default function PortfolioDetails(
           </div>
           <hr id="separator" />
           <div id="PortfolioDetails-returns">
-            <p>Total Value: {portfolioValue()}</p>
+            <p>Total Value: {portfolioValue().toFixed(2)}</p>
             <p>Total Return: {totalReturn()}%</p>
           </div>
         </div>
         <div id="pie-container">
-          <PieChart portfolio={props.portfolio} stocks={props.stocks} />
+          <DoughnutChart portfolio={props.portfolio} stocks={props.stocks} />
         </div>
       </div>
     </div>

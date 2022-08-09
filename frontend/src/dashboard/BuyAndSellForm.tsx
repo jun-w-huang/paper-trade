@@ -15,8 +15,10 @@ export default function BuyAndSellForm(props: BuyAndSellFormProps) {
   const [cost, setCost] = useState(0);
   const [stockIsOwned, setStockIsOwned] = useState(false);
   const [tradeInProgress, setTradeInProgress] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useLayoutEffect(() => {
+    setErrorMessage("");
     // checks if the stock searched is owned by the user and displays a sell button if necessary
     getThisUserJSON(props.token).then((json) => {
       let i = getStockIndex(json, props.stockJSON);
@@ -37,13 +39,19 @@ export default function BuyAndSellForm(props: BuyAndSellFormProps) {
       stockJSON: props.stockJSON,
     };
     setTradeInProgress(true);
-    props.handleBuy(handleTradeProps).then(async () => {
-      getThisUserJSON(props.token).then((json) => {
-        let i = getStockIndex(json, props.stockJSON);
-        i === -1 ? setStockIsOwned(false) : setStockIsOwned(true);
+    props
+      .handleBuy(handleTradeProps)
+      .then(async () => {
+        getThisUserJSON(props.token).then((json) => {
+          let i = getStockIndex(json, props.stockJSON);
+          i === -1 ? setStockIsOwned(false) : setStockIsOwned(true);
+          setTradeInProgress(false);
+        });
+      })
+      .catch((error) => {
+        setErrorMessage(error);
         setTradeInProgress(false);
       });
-    });
   }
 
   async function onSell(e: React.MouseEvent<HTMLInputElement, MouseEvent>) {
@@ -53,13 +61,20 @@ export default function BuyAndSellForm(props: BuyAndSellFormProps) {
       stockJSON: props.stockJSON,
     };
     setTradeInProgress(true);
-    props.handleSell(handleTradeProps).then(async () => {
-      getThisUserJSON(props.token).then((json) => {
-        let i = getStockIndex(json, props.stockJSON);
-        i === -1 ? setStockIsOwned(false) : setStockIsOwned(true);
+    props
+      .handleSell(handleTradeProps)
+      .then(async () => {
+        getThisUserJSON(props.token).then((json) => {
+          let i = getStockIndex(json, props.stockJSON);
+          i === -1 ? setStockIsOwned(false) : setStockIsOwned(true);
+          setTradeInProgress(false);
+          setErrorMessage("");
+        });
+      })
+      .catch((error) => {
+        setErrorMessage(error);
         setTradeInProgress(false);
       });
-    });
   }
 
   return (
@@ -87,6 +102,7 @@ export default function BuyAndSellForm(props: BuyAndSellFormProps) {
         />
       </form>
       <p>Cost / Revenue: {cost.toFixed(2)}</p>
+      <p>{errorMessage}</p>
     </div>
   );
 }

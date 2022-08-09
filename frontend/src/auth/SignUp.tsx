@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { NavLink, Route, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "../styles/Auth.css";
 
+// Renders sign up page and handles sign up attempts
 export default function SignUp() {
   const navigate = useNavigate();
 
@@ -24,13 +25,7 @@ export default function SignUp() {
       },
     })
       .then(async (response) => {
-        const isJson = response.headers
-          .get("content-type")
-          ?.includes("application/json");
-
-        // checks if the response is of JSON type and parses it accordingly.
-        const data = isJson && (await response.json());
-
+        const data = await response.json();
         // check for erroneous response
         if (!response.ok) {
           // return error to catch block
@@ -71,7 +66,7 @@ export default function SignUp() {
           <label htmlFor="password">Password: </label>
           <div id="passwordInput">
             <input
-              type="text"
+              type="password"
               id="password"
               placeholder="password"
               defaultValue=""

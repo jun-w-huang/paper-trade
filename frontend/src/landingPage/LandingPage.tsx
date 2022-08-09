@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import "../styles/LandingPage.css";
 import stonks_jpg from "../res/stonks.jpg";
 
+// renders landing page
 export default function LandingPage() {
   return (
     <div id="background-container">

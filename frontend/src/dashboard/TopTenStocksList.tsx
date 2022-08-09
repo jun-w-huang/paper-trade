@@ -6,29 +6,6 @@ interface stockRowProps {
   usePercentChange: Boolean;
 }
 function StockRow(props: stockRowProps) {
-  //   const [latestPrice, setLatestPrice] = useState(0);
-  //   const [latestPriceFontColor, setLatestPriceFontColor] = useState("black");
-
-  //   useInterval(() => {
-  //     getStockLatestPrice(props.stockJSON.symbol).then((newLatestPrice) => {
-  //       setLatestPrice(newLatestPrice);
-  //       // must use new price as setState hook is async
-  //       if (newLatestPrice > latestPrice) {
-  //         setLatestPriceFontColor("green");
-  //       } else {
-  //         setLatestPriceFontColor("red");
-  //       }
-  //     });
-  //   }, 5000);
-
-  //   //initial price, runs once
-  //   useLayoutEffect(() => {
-  //     console.log("layout");
-  //     getStockLatestPrice(props.stockJSON.symbol).then((newLatestPrice) => {
-  //       setLatestPrice(newLatestPrice);
-  //     });
-  //   }, []);
-
   return (
     <tr>
       <td>{props.stockJSON.symbol}</td>
