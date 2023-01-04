@@ -32,7 +32,7 @@ export async function getThisUserJSON(token: string) {
     },
   });
   if (response) {
-    const userJSON = await response.json();
+    const userJSON = response.json();
     return userJSON;
   }
 }

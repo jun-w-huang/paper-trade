@@ -2,7 +2,6 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const config = require("config");
 const jwt = require("jsonwebtoken");
-const auth = require("../middleware/auth");
 
 const ObjectId = require("mongodb").ObjectId;
 
@@ -14,16 +13,19 @@ const authRoutes = express.Router();
 // This will help us connect to the database
 const dbo = require("../db/conn");
 
-// authorize user
+/**
+ * @route POST users
+ * @desc Given a username and password, returns that user's credentials and a token if valid,
+ * @access Public
+ */
 authRoutes.route("/auth").post(function (req, response) {
-  let db_connect = dbo.getDb();
   // simple validation https://www.youtube.com/watch?v=USaB1adUHM0&list=PLillGF-RfqbbiTGgA77tGO426V3hRF9iE&index=9
   if (!req.body.username || !req.body.password) {
     return response.status(400).json({ msg: "Please enter all fields!" });
   }
   let myquery = { username: req.body.username };
-  console.log(req.body.username);
-  console.log(req.body.password);
+
+  let db_connect = dbo.getDb();
   // check for existing user
   db_connect.collection("users").findOne(myquery, function (err, res) {
     if (err) throw err;
@@ -34,7 +36,6 @@ authRoutes.route("/auth").post(function (req, response) {
       bcrypt.compare(req.body.password, res.password).then((isMatch) => {
         if (!isMatch)
           return response.status(400).json({ msg: "Invalid credentials" });
-        console.log(`first ${res}`);
         jwt.sign(
           { id: res._id },
           config.get("jwtSecret"),
@@ -47,7 +48,6 @@ authRoutes.route("/auth").post(function (req, response) {
               username: req.body.username,
               stocks: req.body.stocks,
             };
-            console.log(`second ${res}`);
             response.json(res);
           }
         );
@@ -56,10 +56,15 @@ authRoutes.route("/auth").post(function (req, response) {
   });
 });
 
+const auth = require("../middleware/auth");
+/**
+ * @route GET users
+ * @desc Finds a specific user
+ * @access Private
+ */
 authRoutes.route("/auth/user").get(auth, function (req, response) {
   let db_connect = dbo.getDb();
   let myquery = { _id: ObjectId(req.user.id) };
-  console.log(req.user.id);
 
   db_connect.collection("users").findOne(myquery, function (err, res) {
     if (err) throw err;
