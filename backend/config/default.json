@@ -1,6 +1,6 @@
 {
-    "ATLAS_URI" : "mongodb+srv://MERN:daisy123@cluster0.tv3qx.mongodb.net/?retryWrites=true&w=majority",
+    "ATLAS_URI" : "YOUR_MONGO_ATLAS_URI",
     "PORT" : 5000,
-    "jwtSecret" : "daisy"
+    "jwtSecret" : "YOUR_JWT_SECRET"
  }
  
