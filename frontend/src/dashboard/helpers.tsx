@@ -1,10 +1,12 @@
 import { IRootObject, Portfolio, Stock, userJSON } from "./interfaces";
 
+const IEXCloudToken = "YOUR_IEX_CLOUD_TOKEN"
+
 export async function fetchStockJSON(ticker: string): Promise<any> {
   try {
     const response =
       await fetch(`https://sandbox.iexapis.com/stable/stock/${ticker}/quote/
-                                        ?token=Tpk_e2b21cc8584845038c4338a07fc520ef`);
+                                        ${IEXCloudToken}`);
     const stockJSON = await response.json();
     return Promise.resolve(stockJSON);
   } catch {
