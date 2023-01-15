@@ -1,7 +1,8 @@
 # Paper Trade
 
-This application is a MERN stack website which allows its users to practice investing through trading stocks using fictional money.
-
+This application is a MERN stack website which allows its users to practice investing through trading stocks using fictional money.\
+Visit here for a full write-up of the development process\
+https://jun-w-huang.github.io/#/papertrademern.
 
 
 # How to Run
@@ -21,7 +22,3 @@ Currently this application is not hosted and is not entirely complete. It was pr
 4. `cd` into backend
 5. Enter `node server.js`
 6. Backend is now running and hosted on `localhost:5000`
-
-
-Visit here for a full write-up of the development process\
-https://jun-w-huang.github.io/#/papertrademern.
